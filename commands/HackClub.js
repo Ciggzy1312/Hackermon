@@ -1,0 +1,44 @@
+const puppeteer = require('puppeteer')
+
+const GetItems = async ()=>{
+    const browser = await puppeteer.launch();
+
+    const page = await browser.newPage();
+
+    await page.goto('https://hackathons.hackclub.com/')
+
+    const ItemList = await page.waitForSelector('a.css-1bn5qip').then(()=>page.evaluate(()=>{
+        const ItemArray = []
+        const ItemNodeList = document.querySelectorAll('a.css-1bn5qip');
+        ItemNodeList.forEach(item => {
+            const itemURL = item.getAttribute('href')
+            const itemName = item.querySelector('h3').innerText
+            const itemDate = item.querySelector('footer>span.css-vurnku').innerText
+            ItemArray.push({itemName, itemURL, itemDate})         
+        });
+        console.log(ItemArray)
+        return ItemArray;
+        
+    })).catch(()=>console.log('Error!!'))
+    return ItemList;
+    
+}
+
+
+module.exports = {
+    name: 'hackclub',
+    desc: 'HackClub hackathons',
+    execute(message, args, Discord){
+        const Scraper = async ()=>{
+            const hackClub = await GetItems()
+            console.log(hackClub)
+            hackClub.forEach(event => {
+                message.channel.send(JSON.stringify(event.itemName))
+                message.channel.send(JSON.stringify(event.itemDate))
+                message.channel.send(JSON.stringify(event.itemURL))
+            })
+        }
+        
+        Scraper()
+    }
+}
