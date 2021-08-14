@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 // our discord bot client
 const client = new Discord.Client()
-
+require('dotenv').config();
 // with what our command will start
 const prefix = '!';
 
@@ -59,4 +59,4 @@ client.on('message', (message)=>{
 });
 
 // to make the bot come online
-client.login('ODYyNjk3MjU3MDY4Nzg5Nzgx.YOcHbg.gNt1T-LsGxbrRdnriypGc0-RZvg')
+client.login(process.env.BOT_TOKEN)

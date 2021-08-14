@@ -41,9 +41,18 @@ module.exports = {
               }
               
             if(Date.parse(new Date) < d){
-             message.channel.send(JSON.stringify(event.itemTitle))
-            message.channel.send(JSON.stringify(event.itemDate))
-            message.channel.send(JSON.stringify(event.itemURL))
+              const embed = new Discord.MessageEmbed()
+              .setColor('#0099ff')
+              .setTitle(JSON.stringify(event.itemTitle))
+              .addFields(
+                { name:  "Duration", value: JSON.stringify(event.itemDate) },
+                { name:  "Hackathon URL", value: JSON.stringify(event.itemURL) }
+              )
+             /*message.channel.send(JSON.stringify(event.itemTitle))
+             message.channel.send(JSON.stringify(event.itemDate))
+             message.channel.send(JSON.stringify(event.itemURL))*/
+
+             message.channel.send(embed)
             }
           })
         }

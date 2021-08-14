@@ -1,10 +1,7 @@
 const puppeteer = require('puppeteer')
 
 const GetItems = async ()=>{
-    const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null
-    });
+    const browser = await puppeteer.launch();
 
     const page = await browser.newPage();
 
@@ -25,7 +22,6 @@ const GetItems = async ()=>{
 
             
         });
-        console.log(ItemArray)
         return ItemArray;
         
     })).catch(()=>console.log('Error!!'))
@@ -40,12 +36,19 @@ module.exports = {
     execute(message, args, Discord){
         const Scraper = async ()=>{
             const devfolio = await GetItems()
-            console.log(devfolio)
-
+            
             devfolio.forEach(event => {
-                message.channel.send(JSON.stringify(event.itemName))
+                const embed = new Discord.MessageEmbed()
+                .setColor('#0099ff')
+                .setTitle(JSON.stringify(event.itemName))
+                .addFields(
+                    { name:  "Duration", value: JSON.stringify(event.itemDate_start) + " - " + JSON.stringify(event.itemDate_end) },
+                    { name:  "Hackathon URL", value: JSON.stringify(event.itemURL) }
+                )
+                /*message.channel.send(JSON.stringify(event.itemName))
                 message.channel.send(JSON.stringify(event.itemDate_start) + " - " + JSON.stringify(event.itemDate_end))
-                message.channel.send(JSON.stringify(event.itemURL))
+                message.channel.send(JSON.stringify(event.itemURL))*/
+                message.channel.send(embed)
             })
         }
         
