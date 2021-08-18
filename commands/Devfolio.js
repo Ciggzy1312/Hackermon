@@ -2,12 +2,10 @@ const puppeteer = require('puppeteer')
 const pagination = require('discord.js-pagination')
 
 const GetItems = async ()=>{
-    const browser = await puppeteer.launch(
-        { 
-        args: ['--no-sandbox'] , 
-        ignoreDefaultArgs: ['--disable-extensions']
-        }
-    );
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox','--disable-setuid-sandbox']
+      })
 
     const page = await browser.newPage();
 
