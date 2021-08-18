@@ -60,3 +60,4 @@ client.on('message', (message)=>{
 
 // to make the bot come online
 client.login(process.env.BOT_TOKEN)
+

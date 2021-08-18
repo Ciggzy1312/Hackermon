@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+const pagination = require('discord.js-pagination')
 
 const GetItems = async ()=>{
     const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
@@ -28,6 +29,7 @@ module.exports = {
     desc: 'returns mlh events',
     execute(message, args, Discord){
       const initScrapper = async ()=>{
+          const pages = []
           const events = await GetItems();  
           events.forEach(event=>{
             if(event.itemDate.length === 14){
@@ -52,9 +54,17 @@ module.exports = {
              message.channel.send(JSON.stringify(event.itemDate))
              message.channel.send(JSON.stringify(event.itemURL))*/
 
-             message.channel.send(embed)
+             //message.channel.send(embed)
+
+             pages.push(embed);
             }
           })
+
+          const emoji = ["⏪", "⏩"]
+
+            //const timeout = '5000'
+
+            pagination(message, pages, emoji)
         }
         
         initScrapper();
