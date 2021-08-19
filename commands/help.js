@@ -17,5 +17,7 @@ module.exports = {
                     { name: '!clear <@number of messages>', value: 'Will clear the mentioned number of messages'}
                 )
                 .setFooter('Want help? Just press `!help`')
+
+                message.channel.send(embed)
     }
 }
