@@ -31,13 +31,6 @@ client.on('ready', ()=>{
     console.log('Bot is ready!!!');
 })
 
-client.on('guildMemberAdd', guildMember =>{
-    let welcomeRole = guildMember.guild.roles.cache.find(role => role.id === '866085212030238720');
- 
-    guildMember.roles.add(welcomeRole);
-    guildMember.guild.channels.cache.get('866086512592158720').send(`Welcome <@${guildMember.user.id}> to our server!`)
-});
-
 // messages that are to be sent
 client.on('message', (message)=>{
     // if the message doesn't start with prefix or the bot itself sends the message(which is very dangerous XD) we ignore it

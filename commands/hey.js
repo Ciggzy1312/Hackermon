@@ -1,7 +1,7 @@
 module.exports = {
-    name: 'ping',
+    name: 'hey',
     desc: 'first command',
     execute(message, args, Discord){
-        message.channel.send('pong!')
+        message.channel.send('Hey how can HackerMon help you?')
     }
 }
